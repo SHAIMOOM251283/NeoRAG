@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 import tempfile
@@ -8,12 +8,31 @@ from pathlib import Path
 from rag import RAG
 
 app = Flask(__name__)
-CORS(app)  # Allows frontend running on different port/origin
+CORS(app)  # still useful in case you add more clients later
 
-# Global state - simple for single-user / in-memory use
+# Global state - simple single-document mode
 current_rag = None
 current_filename = None
 
+
+# ────────────────────────────────────────────────
+# Serve frontend files
+# ────────────────────────────────────────────────
+
+@app.route('/')
+def serve_index():
+    return send_from_directory('.', 'index.html')
+
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    """Serve CSS, JS, images, etc."""
+    return send_from_directory('.', filename)
+
+
+# ────────────────────────────────────────────────
+# API Endpoints
+# ────────────────────────────────────────────────
 
 @app.route("/upload", methods=["POST"])
 def upload_pdf():
@@ -29,22 +48,19 @@ def upload_pdf():
     if not file.filename.lower().endswith(".pdf"):
         return jsonify({"success": False, "error": "Only PDF files are allowed"}), 400
 
-    # Save to temporary file
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
             file.save(tmp.name)
             pdf_path = tmp.name
 
-        # Create RAG instance
         current_rag = RAG(pdf_path=pdf_path)
         current_filename = file.filename
 
-        # Optional: remove the temp file after loading
-        # (Chroma keeps data in memory, so file is no longer needed)
+        # Clean up temp file (Chroma keeps data in memory)
         try:
             os.unlink(pdf_path)
         except:
-            pass  # not critical if deletion fails
+            pass
 
         return jsonify({
             "success": True,
@@ -53,7 +69,6 @@ def upload_pdf():
         })
 
     except Exception as e:
-        # Clean up temp file on error
         if "pdf_path" in locals():
             try:
                 os.unlink(pdf_path)
@@ -111,4 +126,5 @@ def clear():
 
 if __name__ == "__main__":
     print("Starting NeoRAG server...")
+    print("Open in browser: http://localhost:5000/")
     app.run(host="0.0.0.0", port=5000, debug=True)
