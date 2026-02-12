@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeoRAG • PDF Knowledge Oracle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <div class="container">
+    <header>
+      <h1>NeoRAG</h1>
+      <div class="subtitle">Upload • Index • Ask • Enlighten</div>
+    </header>
+
+    <section id="upload-section">
+      <div class="drop-zone" id="drop-zone">
+        <div style="font-size: 3.8rem; margin-bottom: 20px;">📄</div>
+        <div class="drop-text">Drop your PDF here or click to browse</div>
+        <input type="file" id="pdf-upload" accept=".pdf" hidden />
+        <div id="file-info"></div>
+      </div>
+    </section>
+
+    <section id="chat-section">
+      <div id="messages"></div>
+      <div id="input-area">
+        <input type="text" id="question-input" placeholder="Ask anything about the document..." autocomplete="off" />
+        <button id="send-btn" disabled>➤</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Fullscreen loading overlay -->
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Indexing Consciousness...</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
