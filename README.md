@@ -83,22 +83,21 @@ python app.py
 
 ## Project Structure
 
-NeoRAG/
-├── images/               
-│   ├── image_1.png
-│   ├── image_2.png
-│   └── image_3.png
-├── neorag/                 
-│   ├── app.py
-│   ├── rag.py
-│   ├── index.html
-│   ├── styles.css
-│   ├── script.js
-│   └── requirements.txt          
-├── LICENSE                 
-└── README.md               
-
----
+NeoRAG/                     # Repository root
+├── images/                 # Application screenshots
+│   ├── screenshot1.png     (example names — yours may differ)
+│   ├── screenshot2.png
+│   └── screenshot3.png
+├── neorag/                 # Core application code
+│   ├── app.py              # Flask server & API endpoints
+│   ├── rag.py              # RAG pipeline (loading, chunking, embedding, querying)
+│   ├── index.html          # Main frontend page
+│   ├── styles.css          # Neon/cyberpunk styling
+│   ├── script.js           # Frontend behavior (upload, chat, particles)
+│   ├── requirements.txt    # Python dependencies
+│   └── .gitignore          # Ignore patterns (venv, pycache, etc.)
+├── LICENSE                 # Project license (MIT recommended)
+└── README.md               # This file               
 
 ## How It Works (High-Level)
 
