@@ -86,9 +86,9 @@ python app.py
 ```
 NeoRAG/
 ├── images/
-│   ├── screenshot1.png     
-│   ├── screenshot2.png
-│   └── screenshot3.png
+│   ├── image_1.png     
+│   ├── image_2.png
+│   └── image_3.png
 ├── neorag/
 │   ├── app.py
 │   ├── rag.py
