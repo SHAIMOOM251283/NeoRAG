@@ -56,6 +56,9 @@ A clean, **local** web application that lets you upload any PDF document and ask
 git clone https://github.com/SHAIMOOM251283/NeoRAG.git
 cd NeoRAG
 
+# Go into the project folder
+cd neorag
+
 # Create and activate virtual environment
 python -m venv venv
 source venv/bin/activate          # Linux/macOS
@@ -77,18 +80,23 @@ python app.py
 3. Open your browser and go to:  
    **http://localhost:5000/**
 
+
 ## Project Structure
 
-```
-neorag/
-├── app.py              # Flask server & API endpoints
-├── rag.py              # RAG logic (document loading, chunking, embedding, chain)
-├── index.html          # Main page
-├── styles.css          # Neon/cyberpunk styling
-├── script.js           # Frontend logic (upload, chat, particles)
-├── requirements.txt    # Python dependencies
-├── .gitignore
-└── README.md
+NeoRAG/
+├── images/               
+│   ├── image_1.png
+│   ├── image_2.png
+│   └── image_3.png
+├── neorag/                 
+│   ├── app.py
+│   ├── rag.py
+│   ├── index.html
+│   ├── styles.css
+│   ├── script.js
+│   └── requirements.txt          
+├── LICENSE                 
+└── README.md               
 ```
 
 ## How It Works (High-Level)
