@@ -1,10 +1,12 @@
-# NeoRAG – PDF Question-Answering with RAG
+# **NeoRAG – PDF Question-Answering with RAG**
 
 A clean, **local** web application that lets you upload any PDF document and ask natural-language questions about its content — powered by **Retrieval-Augmented Generation (RAG)**.
 
-## NeoRAG Screenhot 
+## NeoRAG Screenhots 
 
 ![NeoRAG Screenshot](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/image_1.png)  
+![NeoRAG Screenshot](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/image_2.png)
+![NeoRAG Screenshot](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/image_3.png)
 
 ## Features
 
