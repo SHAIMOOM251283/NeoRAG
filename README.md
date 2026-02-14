@@ -13,7 +13,6 @@ A clean, **local** web application that lets you upload any PDF document and ask
 - Modern neon/cyberpunk-style interface
 - Drag-and-drop or click-to-upload PDF files
 - Real-time document indexing & question answering
-- "Clear & Upload New" button to reset and start over
 - Animated particle background
 - Responsive design
 - 100% local — no cloud services required
