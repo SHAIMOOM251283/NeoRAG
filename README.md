@@ -95,8 +95,7 @@ NeoRAG/
 │   ├── index.html
 │   ├── styles.css
 │   ├── script.js
-│   ├── requirements.txt
-│   └── .gitignore
+│   └── requirements.txt
 ├── LICENSE
 └── README.md
 ```               
