@@ -123,7 +123,7 @@ NeoRAG/
 
 MIT
 
-Feel free to fork, modify, and use.
+Feel free to fork, modify and use.
 
 Built in Dhaka with curiosity & local LLMs.  
 2025–2026
