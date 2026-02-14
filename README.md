@@ -53,8 +53,8 @@ A clean, **local** web application that lets you upload any PDF document and ask
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/neorag.git
-cd neorag
+git clone https://github.com/SHAIMOOM251283/NeoRAG.git
+cd NeoRAG
 
 # Create and activate virtual environment
 python -m venv venv
