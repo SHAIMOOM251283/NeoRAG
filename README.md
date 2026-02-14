@@ -97,7 +97,8 @@ NeoRAG/
 │   └── requirements.txt          
 ├── LICENSE                 
 └── README.md               
-```
+
+---
 
 ## How It Works (High-Level)
 
