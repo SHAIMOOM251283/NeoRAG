@@ -4,8 +4,7 @@ A clean, **local** web application that lets you upload any PDF document and ask
 
 https://github.com/yourusername/neorag
 
-![NeoRAG Screenshot](screenshot.png)  
-*(add a screenshot of the running app here — highly recommended)*
+![NeoRAG Screenshot](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/image_1.png)  
 
 ## Features
 
