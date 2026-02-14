@@ -105,7 +105,6 @@ NeoRAG/
 1. Upload PDF → temporary file saved  
 2. `rag.py` loads → chunks → embeds → indexes in Chroma  
 3. Questions → retrieve relevant chunks → prompt → answer with llama3.2:1b  
-4. "Clear & Upload New" resets the current document
 
 ## Current Limitations
 
