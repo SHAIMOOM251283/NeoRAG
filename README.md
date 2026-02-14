@@ -2,7 +2,7 @@
 
 A clean, **local** web application that lets you upload any PDF document and ask natural-language questions about its content — powered by **Retrieval-Augmented Generation (RAG)**.
 
-https://github.com/yourusername/neorag
+## NeoRAG Screenhot 
 
 ![NeoRAG Screenshot](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/image_1.png)  
 
