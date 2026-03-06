@@ -1,18 +1,18 @@
 # app.py
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-import os
-import tempfile
 from pathlib import Path
+import traceback
 
 from rag import RAG
 
 app = Flask(__name__)
-CORS(app)  # still useful in case you add more clients later
+CORS(app)
 
-# Global state - simple single-document mode
+# Global state - we keep one document active at a time
 current_rag = None
 current_filename = None
+current_pdf_path = None
 
 
 # ────────────────────────────────────────────────
@@ -36,7 +36,7 @@ def serve_static(filename):
 
 @app.route("/upload", methods=["POST"])
 def upload_pdf():
-    global current_rag, current_filename
+    global current_rag, current_filename, current_pdf_path
 
     if "pdf" not in request.files:
         return jsonify({"success": False, "error": "No file part"}), 400
@@ -49,31 +49,31 @@ def upload_pdf():
         return jsonify({"success": False, "error": "Only PDF files are allowed"}), 400
 
     try:
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
-            file.save(tmp.name)
-            pdf_path = tmp.name
+        # Save file persistently (Chroma can reuse embeddings)
+        upload_dir = Path("uploaded_pdfs")
+        upload_dir.mkdir(exist_ok=True)
 
-        current_rag = RAG(pdf_path=pdf_path)
+        pdf_path = upload_dir / file.filename
+        file.save(pdf_path)
+
+        print(f"[upload] Processing PDF: {pdf_path}")
+
+        # Initialize RAG — will create or reuse chroma_db/
+        current_rag = RAG(file_path=str(pdf_path))
+        # If you want to experiment later, you can activate auto detection:
+        # current_rag = RAG(file_path=str(pdf_path), auto_detect=True)
+
         current_filename = file.filename
-
-        # Clean up temp file (Chroma keeps data in memory)
-        try:
-            os.unlink(pdf_path)
-        except:
-            pass
+        current_pdf_path = str(pdf_path)
 
         return jsonify({
             "success": True,
-            "message": "PDF processed successfully",
+            "message": "PDF processed and indexed successfully",
             "filename": current_filename
         })
 
     except Exception as e:
-        if "pdf_path" in locals():
-            try:
-                os.unlink(pdf_path)
-            except:
-                pass
+        print("[upload error]", traceback.format_exc())
         return jsonify({"success": False, "error": str(e)}), 500
 
 
@@ -93,13 +93,17 @@ def ask():
         return jsonify({"success": False, "error": "Question cannot be empty"}), 400
 
     try:
-        answer = current_rag.ask(question)
+        # Call the chain from your current rag.py (v2)
+        answer = current_rag.rag_chain.invoke(question)
+
         return jsonify({
             "success": True,
-            "answer": answer
+            "answer": answer.strip() if isinstance(answer, str) else str(answer)
         })
+
     except Exception as e:
-        return jsonify({"success": False, "error": f"Processing error: {str(e)}"}), 500
+        print("[ask error]", traceback.format_exc())
+        return jsonify({"success": False, "error": str(e)}), 500
 
 
 @app.route("/status", methods=["GET"])
@@ -109,22 +113,25 @@ def status():
             "has_document": False,
             "message": "No document loaded"
         })
+
     return jsonify({
         "has_document": True,
         "filename": current_filename,
-        "message": "Document is ready"
+        "message": "Document is ready (persistent Chroma index)"
     })
 
 
 @app.route("/clear", methods=["POST"])
 def clear():
-    global current_rag, current_filename
+    global current_rag, current_filename, current_pdf_path
     current_rag = None
     current_filename = None
+    current_pdf_path = None
     return jsonify({"success": True, "message": "Current document cleared"})
 
 
 if __name__ == "__main__":
-    print("Starting NeoRAG server...")
+    print("Starting NeoRAG server (using rag.py v2)")
     print("Open in browser: http://localhost:5000/")
+    print("Make sure Ollama is running with nomic-embed-text and llama3.2:1b\n")
     app.run(host="0.0.0.0", port=5000, debug=True)
