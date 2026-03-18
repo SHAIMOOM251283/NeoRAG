@@ -253,6 +253,18 @@ Open your browser at: **[http://localhost:5000/](http://localhost:5000/)**
 
 ---
 
+## Sample PDFs for Testing
+
+You can use the sample PDFs in the `pdf_samples/` directory to quickly test the app without needing your own documents:
+
+- `notes.pdf` → Basic English PDF (works with v1 and v2)
+- `test_eng.pdf` → English test document
+- `test_fr.pdf` → French test document (demonstrates multilingual support in v2)
+
+Upload any of these files through the UI after starting the app.
+
+---
+
 ## License
 
 MIT — feel free to fork, modify, and use.
