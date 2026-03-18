@@ -2,93 +2,191 @@
 
 A clean, **local** web application that lets you upload any PDF document and ask natural-language questions about its content — powered by **Retrieval-Augmented Generation (RAG)**.
 
-## NeoRAG Screenhots 
+---
 
-![NeoRAG Screenshot](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/image_1.png)  
-![NeoRAG Screenshot](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/image_2.png)
-![NeoRAG Screenshot](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/image_3.png)
+# 🚀 Project Evolution
+
+NeoRAG has evolved into two versions:
+
+* **neorag_v1/** → Initial implementation (basic RAG pipeline, English-only)
+* **neorag_v2/** → Improved system with intelligent parsing, persistence, multilingual support, and enhanced UX
+
+---
+
+# 🧩 NeoRAG v1 (Initial Version)
+
+## Screenshots
+
+![v1 Home Page](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/v1/home.png)
+*Home page / PDF upload*
+
+![v1 Indexing](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/v1/indexing.png)
+*“Indexing Consciousness” overlay*
+
+![v1 Sample Q\&A](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/v1/output_en.png)
+*Example Q&A output (English)*
+
+---
 
 ## Features
 
-- Modern neon/cyberpunk-style interface
-- Drag-and-drop or click-to-upload PDF files
-- Real-time document indexing & question answering
-- Animated particle background
-- Responsive design
-- 100% local — no cloud services required
+* Modern neon/cyberpunk-style interface
+* Drag-and-drop or click-to-upload PDF files
+* Real-time document indexing & question answering
+* Animated particle background
+* Responsive design
+* 100% local — no cloud services required
+
+---
 
 ## Tech Stack
 
-**Backend**  
-- Python 3.10+  
-- Flask  
-- LangChain + Ollama integration  
-- Chroma (in-memory vector store)  
+**Backend**
 
-**Frontend**  
-- HTML5 + CSS3 (custom neon theme)  
-- Vanilla JavaScript (no frameworks)  
+* Python 3.10+
+* Flask
+* LangChain + Ollama integration
+* Chroma (**in-memory vector store**)
 
-**Local AI** (via Ollama)  
-- Embeddings: `nomic-embed-text`  
-- LLM: `llama3.2:1b` (very lightweight)
+**Frontend**
 
-## Prerequisites
+* HTML5 + CSS3 (custom neon theme)
+* Vanilla JavaScript (no frameworks)
 
-1. **Python 3.10+**  
-2. **Ollama** (required – runs the embedding & generation models locally)  
-   - Download and install from: https://ollama.com/download  
-   - After installation, open a terminal and pull the required models:  
-     ```bash
-     ollama pull nomic-embed-text
-     ollama pull llama3.2:1b
-     ```
-   - Start the Ollama server (keep this running in a separate terminal):  
-     ```bash
-     ollama serve
-     ```
+**Local AI (via Ollama)**
 
-## Installation
+* Embeddings: `nomic-embed-text`
+* LLM: `llama3.2:1b`
 
-```bash
-# Clone the repository
-git clone https://github.com/SHAIMOOM251283/NeoRAG.git
-cd NeoRAG
+---
 
-# Go into the project folder
-cd neorag
+## Limitations (v1)
 
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate          # Linux/macOS
-# or on Windows: venv\Scripts\activate
+* Single document active at a time
+* Vector store is **in-memory only** (lost on restart)
+* Manual PDF loader selection
+* Limited handling of complex/scanned PDFs
+* **English-only** — cannot handle PDFs in other languages
 
-# Install Python dependencies
-pip install -r requirements.txt
-```
+---
 
-## Running the App
+# ✨ NeoRAG v2 (Improved Version)
 
-1. Make sure Ollama is running (`ollama serve` in another terminal)  
-2. Start the web server:
+> NeoRAG v2 transforms the project into a more **robust and adaptive RAG system** with better document handling, persistence, multilingual support, and performance enhancements.
 
-```bash
-python app.py
-```
+---
 
-3. Open your browser and go to:  
-   **http://localhost:5000/**
+## Screenshots
 
+![v2 Home Page](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/v2/home.png)
+*Home page / PDF upload (same as v1)*
+
+![v2 Indexing](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/v2/indexing.png)
+*“Indexing Consciousness” overlay (same as v1)*
+
+![v2 Sample Q\&A (English)](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/v2/output_en.png)
+*Example Q&A output (English)*
+
+![v2 Sample Q\&A (French)](https://github.com/SHAIMOOM251283/NeoRAG/blob/main/images/v2/output_fr.png)
+*Example Q&A output (French — demonstrates multilingual support)*
+
+---
+
+## 🔥 New & Improved Features
+
+### 🧠 Intelligent PDF Processing
+
+* Automatic loader detection:
+
+  * PyMuPDF (fast)
+  * PyPDF
+  * Unstructured (fast / hi_res)
+
+* Handles:
+
+  * Clean PDFs
+  * Complex layouts
+  * Scanned documents
+
+---
+
+### 💾 Persistent Vector Store
+
+* Chroma database stored on disk (`chroma_db/`)
+* Reuses embeddings across sessions
+* Faster reload and improved efficiency
+
+---
+
+### ⚡ Performance Improvements
+
+* Batch embedding to reduce memory usage
+* Smarter chunking strategy
+* Skips splitting for structured (`hi_res`) documents
+
+---
+
+### 🌐 Multilingual Support
+
+* Process PDFs in multiple languages
+* Output answers in the same language as the PDF content
+* English, Spanish, French, and more
+
+---
+
+### 💬 Enhanced Chat & Backend
+
+* **Frontend / UX Improvements**
+
+  * Interactive Q&A chat UI
+  * Real-time responses
+  * Upgraded loading indicators for better UX
+
+* **Backend Enhancements**
+
+  * Persistent PDF storage (`uploaded_pdfs/`)
+  * Automatic PDF loader detection (PyMuPDF / PyPDF / Unstructured)
+  * Multi-language support (English, Spanish, French, etc.)
+  * Smarter retrieval and RAG chain integration
+  * Improved error handling and logging
+
+* **Performance Boosts**
+
+  * Persistent vector store improves `/ask` performance
+  * Smarter chunking and batch embedding
+
+---
+
+### 🛡️ Improved Reliability
+
+* Automatic fallback if PDF parsing fails
+* Content validation before indexing
+* Better debugging logs and error messages
+
+---
 
 ## Project Structure
 
 ```
 NeoRAG/
 ├── images/
-│   ├── image_1.png     
-│   ├── image_2.png
-│   └── image_3.png
-├── neorag/
+│   ├── v1/
+│   │   ├── home.png
+│   │   ├── indexing.png
+│   │   └── output_en.png
+│   ├── v2/
+│   │   ├── home.png
+│   │   ├── indexing.png
+│   │   ├── output_en.png
+│   │   └── output_es.png
+├── neorag_v1/
+│   ├── app.py
+│   ├── rag.py
+│   ├── index.html
+│   ├── styles.css
+│   ├── script.js
+│   └── requirements.txt
+├── neorag_v2/
 │   ├── app.py
 │   ├── rag.py
 │   ├── index.html
@@ -97,35 +195,69 @@ NeoRAG/
 │   └── requirements.txt
 ├── LICENSE
 └── README.md
-```               
+```
+
+---
 
 ## How It Works (High-Level)
 
-1. Upload PDF → temporary file saved  
-2. `rag.py` loads → chunks → embeds → indexes in Chroma  
-3. Questions → retrieve relevant chunks → prompt → answer with llama3.2:1b  
+1. Upload PDF → temporary file saved
+2. RAG system loads → chunks → embeds → indexes in Chroma (persistent in v2)
+3. Questions → retrieve relevant chunks → prompt → answer with llama3.2:1b
+4. v2 automatically detects loader and handles multilingual PDFs
 
-## Current Limitations
+---
 
-- Single document active at a time  
-- Vector store is in-memory only (lost on server restart)  
-- Designed for personal/local use
+## Prerequisites
 
-## Planned / Possible Improvements
+1. **Python 3.10+**
+2. **Ollama** (runs embedding & generation models locally)
 
-- Persistent vector store (save/load Chroma to disk)  
-- Multiple documents / document selector  
-- Source citation / chunk highlighting in answers  
-- File size validation & progress indicators  
-- Optional dark/light mode toggle  
+   ```bash
+   ollama pull nomic-embed-text
+   ollama pull llama3.2:1b
+   ollama serve
+   ```
+
+---
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/SHAIMOOM251283/NeoRAG.git
+cd NeoRAG/neorag_v2  # or neorag_v1 for version 1
+
+# Create & activate virtual environment
+python -m venv venv
+source venv/bin/activate          # Linux/macOS
+# or on Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+---
+
+## Running the App
+
+```bash
+# Make sure Ollama is running
+ollama serve
+
+# Start Flask server
+python app.py
+```
+
+Open your browser at: **[http://localhost:5000/](http://localhost:5000/)**
+
+---
 
 ## License
 
-MIT
+MIT — feel free to fork, modify, and use.
 
-Feel free to fork, modify and use.
-
-Built in Dhaka with curiosity & local LLMs.  
+Built in Dhaka with curiosity & local LLMs.
 2025–2026
 
-```
+---
